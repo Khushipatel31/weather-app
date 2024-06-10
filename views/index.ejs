@@ -8,50 +8,50 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://kit.fontawesome.com/8e33160794.js" crossorigin="anonymous"></script>
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700;800;900&display=swap">
-    <script src="index.js"></script>
+        href="https://fonts.googleapis.com/css?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
 </head>
 
 <body>
-    <!-- <form action="/" method="post">
-        <label for="name">City name:</label>
-        <button type="submit">Search</button>
-    </form> -->
     <div class="container">
         <div class="search-box">
             <i class="fa-solid fa-location-dot"></i>
-            <form action="/" method="post" >
-                <input type="text" name="city" id="city" placeholder="Enter city" />
-                <button  type="submit"  class="fa-solid fa-magnifying-glass"></button>
+            <form action="/" method="post">
+                <input type="text" name="city" id="city" placeholder="Enter city" value="<%= success ? city : '' %>" />
+                <button type="submit" class="fa-solid fa-magnifying-glass"></button>
             </form>
         </div>
-        <div class="not-found">
-            <img src="/img/image.png" />
-            <p>Oops!! Invalid location :</p>
-        </div>
-        <div class="weather-box">
-            <img src="https://openweathermap.org/img/wn/50d@2x.png" />
-            <div class="weather-temp-desc">
-                <p class="temperature">34%</p>
-                <p class="description">humid</p>
-            </div>
-        </div>
-        <div class="weather-details">
-            <div class="humidity">
-                <i class="fa-solid fa-water"></i>
-                <div class="text">
-                    <span></span>
-                    <p>Humidity</p>
+        <% if (success===false) { %>
+                <div class="not-found">
+                    <img src="/img/image.png" />
+                    <p>Oops!! Invalid location</p>
                 </div>
-            </div>
-            <div class="wind">
-                <i class="fa-solid fa-wind"></i>
-                <div class="text">
-                    <span></span>
-                    <p>Wind Speed</p>
-                </div>
-            </div>
-        </div>
+                <% } else if (success===true ) { %>
+                    <div class="weather-box">
+                        <img src="<%= iconUrl %>" />
+                        <div class="weather-temp-desc">
+                            <p class="temperature">
+                                <%= tempp %> °C
+                            </p>
+                            <p class="description">
+                                <%= des %>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="humidity">
+                            <i class="fa-solid fa-water"></i>
+                            <span>
+                                <%= humidity %>%
+                            </span>
+                        </div>
+                        <div class="wind">
+                            <i class="fa-solid fa-wind"></i>
+                            <span>
+                                <%= windSpeed %> km/h
+                            </span>
+                        </div>
+                    </div>
+                    <% } %>
     </div>
 </body>
 
