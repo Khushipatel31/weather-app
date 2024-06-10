@@ -4,8 +4,12 @@ const app = express();
 const axios = require("axios");
 app.use(bodyParser.urlencoded({ extended: true }));
 require('dotenv').config();
+
+app.set("view engine", "ejs")
+app.use(express.static("public"))
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html")
+    const sendData = { location: "Location", temp: "Temp", desc: "Description", feel: "Feel-like", humidity: "Humidity", speed: "Speed" }
+    res.render("index",{sendData})
 })
 app.post("/", async (req, res) => {
     let location = await req.body.city;
@@ -24,4 +28,3 @@ app.post("/", async (req, res) => {
 app.listen(3000, () => {
     console.log("server is running on http://localhost:3000")
 })
-// 735dbf217b391aa34b1ea33fb4262f2ahttps://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
