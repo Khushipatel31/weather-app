@@ -23,53 +23,57 @@
             </form>
         </div>
         <div id="error" style="display: none; color: red;text-align: center;">Please enter a city</div>
-        <% if (success === false) { %>
+        <% if (success===false) { %>
             <div class="not-found">
                 <img src="/img/image.png" />
                 <p>Oops!! Invalid location</p>
             </div>
-        <% } else if (success === true) { %>
-              <%  createChart(forecasts)%>
-            <div class="weather-box">
-                <div class="weather-img-desc">
-                    <div class="weather-img">
-                        <img src="<%= iconUrl %>" />
+            <% } else if (success===true) { %>
+                <div class="weather-box">
+                    <div class="weather-img-desc">
+                        <div class="weather-img">
+                            <img src="<%= iconUrl %>" />
+                        </div>
+                        <div class="weather-temp-desc">
+                            <p class="temperature">
+                                <%= tempp %> °C
+                            </p>
+                            <p class="description">
+                                <%= des %>
+                            </p>
+                        </div>
                     </div>
-                    <div class="weather-temp-desc">
-                        <p class="temperature">
-                            <%= tempp %> °C
-                        </p>
-                        <p class="description">
-                            <%= des %>
-                        </p>
+                    <div class="weather-details">
+                        <div class="humidity">
+                            <i class="fa-solid fa-water"></i>
+                            <span>
+                                <%= humidity %>%
+                            </span>
+                        </div>
+                        <div class="wind">
+                            <i class="fa-solid fa-wind"></i>
+                            <span>
+                                <%= windSpeed %> km/h
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <div class="weather-details">
-                    <div class="humidity">
-                        <i class="fa-solid fa-water"></i>
-                        <span>
-                            <%= humidity %>%
-                        </span>
-                    </div>
-                    <div class="wind">
-                        <i class="fa-solid fa-wind"></i>
-                        <span>
-                            <%= windSpeed %> km/h
-                        </span>
-                    </div>
+                <div class="forecast-container" id="forecastData">
+                    <% forecasts.forEach(forecast=> { %>
+                        <div class="forecast-day">
+                            <p class="day">
+                                <%= forecast.dayOfWeek %>
+                            </p>
+                            <p class="date">
+                                <%= forecast.formattedDate %>
+                            </p>
+                            <img src="<%= forecast.icon %>" />
+                        </div>
+                        <% }); %>
                 </div>
-            </div>
-            <div class="forecast-container" id="forecastData">
-                <% forecasts.forEach(forecast => { %>
-                    <div class="forecast-day">
-                        <p class="day"><%= forecast.dayOfWeek %></p>
-                        <p class="date"><%= forecast.formattedDate %></p>
-                        <img src="<%= forecast.icon %>" />
-                    </div>
-                <% }); %>
-            </div>
-        <% } %>
-        <div id="chart"></div>
+                <div id="forecastDataContainer" data-forecasts='<%= JSON.stringify(forecasts) %>'></div>
+                <% } %>
+                <div id="chart"></div>
     </div>
 </body>
 

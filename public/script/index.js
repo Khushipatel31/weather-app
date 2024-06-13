@@ -9,32 +9,51 @@ function validateForm() {
     return true;
 }
 
-function createChart(data) {
-    console.log(data)
-    var options = {
-        chart: {
-            height: 380,
-            width: "100%",
-            type: "area",
-            animations: {
-                initialAnimation: {
-                    enabled: false
+document.addEventListener("DOMContentLoaded", function() {
+    var forecastDataContainer = document.getElementById('forecastDataContainer');
+    if (forecastDataContainer) {
+        var forecasts = JSON.parse(forecastDataContainer.getAttribute('data-forecasts'));
+        console.log("Forecasts data in index.js:", forecasts); 
+
+        if (forecasts.length > 0 && forecasts[0].hasOwnProperty('maxTemp') && forecasts[0].hasOwnProperty('dayOfWeek')) {
+            var options = {
+                chart: {
+                    height: 380,
+                    width: "100%",
+                    type: "area",
+                    animations: {
+                        initialAnimation: {
+                            enabled: false
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: "Max Temperature",
+                        data: forecasts.map(f => ({
+                            x: f.formattedDate,
+                            y: f.maxTemp
+                        }))
+                    },
+                    {
+                        name: "Min Temperature",
+                        data: forecasts.map(f => ({
+                            x: f.formattedDate,
+                            y: f.minTemp
+                        }))
+                    }
+                ],
+                xaxis: {
+                    type: "datetime"
                 }
-            }
-        },
-        series: [
-            {
-                name: "Series 1",
-                data: [
-                ]
-            }
-        ],
-        xaxis: {
-            type: "datetime"
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        } else {
+            console.error("Forecasts data is not in the expected format:", forecasts);
         }
-    };
-
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-
-    chart.render();
-}
+    } else {
+        console.error("Forecasts data container is not found.");
+    }
+});

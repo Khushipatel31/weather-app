@@ -52,7 +52,9 @@ app.post("/", async (req, res) => {
             const forecasts = forecastData.map(data => ({
                 dayOfWeek: getDayOfWeek(data.date),
                 icon: data.day.condition.icon,
-                formattedDate: formatDate(data.date)
+                formattedDate: formatDate(data.date),
+                maxTemp:data.day.mintemp_c,
+                minTemp:data.day.maxtemp_c
             }));
             const minTemps = forecastData.map(data => data.day.mintemp_c);
             const maxTemps = forecastData.map(data => data.day.maxtemp_c);
