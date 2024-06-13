@@ -13,12 +13,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var forecastDataContainer = document.getElementById('forecastDataContainer');
     if (forecastDataContainer) {
         var forecasts = JSON.parse(forecastDataContainer.getAttribute('data-forecasts'));
-        console.log("Forecasts data in index.js:", forecasts); 
-
         if (forecasts.length > 0 && forecasts[0].hasOwnProperty('maxTemp') && forecasts[0].hasOwnProperty('dayOfWeek')) {
             var options = {
                 chart: {
-                    height: 380,
+                    height: 260,
                     width: "100%",
                     type: "area",
                     animations: {

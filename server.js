@@ -15,9 +15,7 @@ let weatherData = {
     iconUrl: '',
     humidity: '',
     windSpeed: '',
-    forecasts:[],
-    minTemps:[],
-    maxTemps:[]
+    forecasts:[]
 };
 
 app.get("/", (req, res) => {
@@ -40,7 +38,6 @@ app.post("/", async (req, res) => {
     const url = `https://api.weatherapi.com/v1/forecast.json?key=${process.env.FORECASTAPIKEY}&q=${req.body.city}&days=7&aqi=no&alerts=no`;
     try {
         const result = await axios.get(url);
-        console.log(result.data)
         if (result.status === 200) {
             const tempp = result.data.current.temp_c;
             const des = result.data.current.condition.text;
@@ -53,18 +50,15 @@ app.post("/", async (req, res) => {
                 dayOfWeek: getDayOfWeek(data.date),
                 icon: data.day.condition.icon,
                 formattedDate: formatDate(data.date),
-                maxTemp:data.day.mintemp_c,
-                minTemp:data.day.maxtemp_c
+                maxTemp:data.day.maxtemp_c,
+                minTemp:data.day.mintemp_c
             }));
-            const minTemps = forecastData.map(data => data.day.mintemp_c);
-            const maxTemps = forecastData.map(data => data.day.maxtemp_c);
-            weatherData = { city, success: true, tempp, des, iconUrl, humidity, windSpeed,forecasts,minTemps,maxTemps };
+            weatherData = { city, success: true, tempp, des, iconUrl, humidity, windSpeed,forecasts };
         } else {
-            weatherData = { city: location, success: false, tempp: '', des: '', iconUrl: '', humidity: '', windSpeed: '',forecasts:[],minTemps:[],maxTemps:[] };
+            weatherData = { city: location, success: false, tempp: '', des: '', iconUrl: '', humidity: '', windSpeed: '',forecasts:[] };
         }
     } catch (error) {
-        console.log(error)
-        weatherData = { city: location, success: false, tempp: '', des: '', iconUrl: '', humidity: '', windSpeed: '' ,forecasts:[],minTemps:[],maxTemps:[]};
+        weatherData = { city: location, success: false, tempp: '', des: '', iconUrl: '', humidity: '', windSpeed: '' ,forecasts:[]};
     }
     res.redirect('/');
 });

@@ -6,7 +6,6 @@
     box-sizing: border-box;
 }
 body{
-    /* height: 100vh; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,18 +14,24 @@ body{
 
 .container{
     position: relative;
-    /* width:500px; */
+    width:60%;
+    margin-top: 3%;
     background-color: white;
     padding: 28px 32px;
     overflow: hidden;
-    margin-top: 8%;
     border-radius: 18px;
     font-family: 'Roboto',sans-serif;
     transition: 0.6s ease-out;
 }
 
 .search-box{
-    /* width: 100%; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-box form{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -38,8 +43,7 @@ body{
     font-size:24px;
     font-weight: 500;
     padding: 4px;
-    padding-left: 50px;
-    border-radius: 10%;
+    padding-left: 5%;
 }
 
 .search-box input::placeholder{
@@ -59,60 +63,44 @@ body{
     transition: 0.4s ease;
 }
 
-.search-box form{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
 .search-box button:hover{
     color: #fff;
     background: #06283D;
 }
 
 .search-box i{
-    position: absolute;
+    position: relative;
     color: #06283D;
     font-size: 28px;
 }
 
 .weather-box{
+    padding-top: 2%;
     display: flex;
     align-items: center;
+    gap:50px;
     justify-content: center;
 }
 
 .weather-img-desc{
     width: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 100%;
+    padding: 3%;
 }
 
-.weather-box img{
-    /* width: 50%; */
-    margin-top: 30px;
-}
 
 .weather-box .weather-temp-desc{
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
     color: #06283D;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
+    gap:4px
 }
 
-.weather-img-desc{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-
-}
-.weather-img{
-    justify-self: center;
-    align-self: center;
-    padding-bottom: 10%;
-}
 
 .weather-details{
     width: 100%;
@@ -165,4 +153,11 @@ body{
 .forecast-container{
     display: flex;
     margin-top: 5%;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.chart{
+    margin-top: 2%;
 }
