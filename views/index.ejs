@@ -21,14 +21,18 @@
             </form>
         </div>
         <div id="error" style="display: none; color: red;text-align: center;">Please enter a city</div>
-        <% if (success===false) { %>
+        <% if (success === false) { %>
             <div class="not-found">
                 <img src="/img/image.png" />
                 <p>Oops!! Invalid location</p>
             </div>
-            <% } else if (success===true ) { %>
-                <div class="weather-box">
-                    <img src="<%= iconUrl %>" />
+        <% } else if (success === true) { %>
+
+            <div class="weather-box">
+                <div class="weather-img-desc">
+                    <div class="weather-img">
+                        <img src="<%= iconUrl %>" />
+                    </div>
                     <div class="weather-temp-desc">
                         <p class="temperature">
                             <%= tempp %> °C
@@ -52,7 +56,20 @@
                         </span>
                     </div>
                 </div>
-                <% } %>
+            </div>
+          
+            <div class="forecast-container">
+                <% forecasts.forEach(forecast => { %>
+                    <div class="forecast-day">
+                        <p class="day"><%= forecast.dayOfWeek %></p>
+                        <p class="date"><%= forecast.formattedDate %></p>
+                        <img src="<%= forecast.icon %>" />
+                        <p class="min-temp">Min: <%= minTemps[forecasts.indexOf(forecast)] %> °C</p>
+                        <p class="max-temp">Max: <%= maxTemps[forecasts.indexOf(forecast)] %> °C</p>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
     </div>
     <script>
         function validateForm() {
