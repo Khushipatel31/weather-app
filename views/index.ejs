@@ -15,44 +15,57 @@
     <div class="container">
         <div class="search-box">
             <i class="fa-solid fa-location-dot"></i>
-            <form action="/" method="post">
+            <form action="/" method="post" onsubmit="return validateForm()">
                 <input type="text" name="city" id="city" placeholder="Enter city" value="<%= success ? city : '' %>" />
                 <button type="submit" class="fa-solid fa-magnifying-glass"></button>
             </form>
         </div>
+        <div id="error" style="display: none; color: red;text-align: center;">Please enter a city</div>
         <% if (success===false) { %>
-                <div class="not-found">
-                    <img src="/img/image.png" />
-                    <p>Oops!! Invalid location</p>
+            <div class="not-found">
+                <img src="/img/image.png" />
+                <p>Oops!! Invalid location</p>
+            </div>
+            <% } else if (success===true ) { %>
+                <div class="weather-box">
+                    <img src="<%= iconUrl %>" />
+                    <div class="weather-temp-desc">
+                        <p class="temperature">
+                            <%= tempp %> °C
+                        </p>
+                        <p class="description">
+                            <%= des %>
+                        </p>
+                    </div>
                 </div>
-                <% } else if (success===true ) { %>
-                    <div class="weather-box">
-                        <img src="<%= iconUrl %>" />
-                        <div class="weather-temp-desc">
-                            <p class="temperature">
-                                <%= tempp %> °C
-                            </p>
-                            <p class="description">
-                                <%= des %>
-                            </p>
-                        </div>
+                <div class="weather-details">
+                    <div class="humidity">
+                        <i class="fa-solid fa-water"></i>
+                        <span>
+                            <%= humidity %>%
+                        </span>
                     </div>
-                    <div class="weather-details">
-                        <div class="humidity">
-                            <i class="fa-solid fa-water"></i>
-                            <span>
-                                <%= humidity %>%
-                            </span>
-                        </div>
-                        <div class="wind">
-                            <i class="fa-solid fa-wind"></i>
-                            <span>
-                                <%= windSpeed %> km/h
-                            </span>
-                        </div>
+                    <div class="wind">
+                        <i class="fa-solid fa-wind"></i>
+                        <span>
+                            <%= windSpeed %> km/h
+                        </span>
                     </div>
-                    <% } %>
+                </div>
+                <% } %>
     </div>
+    <script>
+        function validateForm() {
+            let city = document.getElementById("city");
+            let errorMsg = document.getElementById("error");
+            if (city.value.trim() === '') {
+                errorMsg.style.display = 'block';
+                return false;
+            }
+            errorMsg.style.display = 'none';
+            return true;
+        }
+    </script>
 </body>
 
 </html>
