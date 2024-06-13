@@ -7,6 +7,8 @@
     <title>Weather app</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://kit.fontawesome.com/8e33160794.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="/script/index.js"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
 </head>
@@ -27,7 +29,7 @@
                 <p>Oops!! Invalid location</p>
             </div>
         <% } else if (success === true) { %>
-
+              <%  createChart(forecasts)%>
             <div class="weather-box">
                 <div class="weather-img-desc">
                     <div class="weather-img">
@@ -57,32 +59,18 @@
                     </div>
                 </div>
             </div>
-          
-            <div class="forecast-container">
+            <div class="forecast-container" id="forecastData">
                 <% forecasts.forEach(forecast => { %>
                     <div class="forecast-day">
                         <p class="day"><%= forecast.dayOfWeek %></p>
                         <p class="date"><%= forecast.formattedDate %></p>
                         <img src="<%= forecast.icon %>" />
-                        <p class="min-temp">Min: <%= minTemps[forecasts.indexOf(forecast)] %> °C</p>
-                        <p class="max-temp">Max: <%= maxTemps[forecasts.indexOf(forecast)] %> °C</p>
                     </div>
                 <% }); %>
             </div>
         <% } %>
+        <div id="chart"></div>
     </div>
-    <script>
-        function validateForm() {
-            let city = document.getElementById("city");
-            let errorMsg = document.getElementById("error");
-            if (city.value.trim() === '') {
-                errorMsg.style.display = 'block';
-                return false;
-            }
-            errorMsg.style.display = 'none';
-            return true;
-        }
-    </script>
 </body>
 
 </html>
